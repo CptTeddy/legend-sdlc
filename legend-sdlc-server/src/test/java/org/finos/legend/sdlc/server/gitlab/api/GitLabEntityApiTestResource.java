@@ -246,6 +246,14 @@ public class GitLabEntityApiTestResource
 
         // Update workspace branch and trigger rebase conflict
         gitLabWorkspaceApi.updateWorkspace(projectId, workspaceId);
+        List<Entity> updatedWorkspaceEntities = gitLabEntityApi.getWorkspaceEntityAccessContext(projectId, workspaceId).getEntities(null, null, null);
+
+        Assert.assertNotNull(updatedWorkspaceEntities);
+        Assert.assertEquals(1, updatedWorkspaceEntities.size());
+        Entity updatedEntity = updatedWorkspaceEntities.get(0);
+        Assert.assertEquals(updatedEntity.getPath(), entityPath);
+        Assert.assertEquals(updatedEntity.getClassifierPath(), classifierPath);
+        Assert.assertEquals(updatedEntity.getContent(), currentEntityContentMap);
     }
 
 
