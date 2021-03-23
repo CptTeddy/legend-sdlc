@@ -52,6 +52,12 @@ public class TestGitLabServerEntityApis extends AbstractGitLabServerApiTest
         gitLabEntityApiTestResource.runEntitiesInNormalWorkflowTest();
     }
 
+    @Test
+    public void testUpdateWorksapceConflictWorkflow() throws GitLabApiException
+    {
+        gitLabEntityApiTestResource.runUpdateWorkspaceConflictTest();
+    }
+
     /**
      * Authenticates with OAuth2 and instantiate the test SDLC GitLabEntityApi.
      */
