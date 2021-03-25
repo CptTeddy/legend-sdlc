@@ -16,12 +16,7 @@ package org.finos.legend.sdlc.server.gitlab.api.server;
 
 import org.finos.legend.sdlc.server.error.LegendSDLCServerException;
 import org.finos.legend.sdlc.server.gitlab.GitLabConfiguration;
-import org.finos.legend.sdlc.server.gitlab.api.GitLabEntityApi;
-import org.finos.legend.sdlc.server.gitlab.api.GitLabEntityApiTestResource;
-import org.finos.legend.sdlc.server.gitlab.api.GitLabProjectApi;
-import org.finos.legend.sdlc.server.gitlab.api.GitLabReviewApi;
-import org.finos.legend.sdlc.server.gitlab.api.GitLabRevisionApi;
-import org.finos.legend.sdlc.server.gitlab.api.GitLabWorkspaceApi;
+import org.finos.legend.sdlc.server.gitlab.api.*;
 import org.finos.legend.sdlc.server.gitlab.auth.GitLabUserContext;
 import org.finos.legend.sdlc.server.project.config.ProjectStructureConfiguration;
 import org.gitlab4j.api.GitLabApiException;
@@ -53,9 +48,15 @@ public class TestGitLabServerEntityApis extends AbstractGitLabServerApiTest
     }
 
     @Test
-    public void testUpdateWorksapceConflictWorkflow() throws GitLabApiException
+    public void testUpdateWorkspaceWithRebaseNoConflictFlow() throws GitLabApiException
     {
-        gitLabEntityApiTestResource.runUpdateWorkspaceConflictTest();
+        gitLabEntityApiTestResource.runUpdateWorkspaceWithRebaseNoConflict();
+    }
+
+    @Test
+    public void testUpdateWorkspaceAndResolveRebaseConflictFlow() throws GitLabApiException
+    {
+        gitLabEntityApiTestResource.runUpdateWorkspaceAndResolveRebaseConflict();
     }
 
     /**
@@ -74,7 +75,8 @@ public class TestGitLabServerEntityApis extends AbstractGitLabServerApiTest
         GitLabEntityApi gitLabEntityApi = new GitLabEntityApi(gitLabMemberUserContext, backgroundTaskProcessor);
         GitLabReviewApi gitLabCommitterReviewApi = new GitLabReviewApi(gitLabMemberUserContext);
         GitLabReviewApi gitLabApproverReviewApi = new GitLabReviewApi(gitLabOwnerUserContext);
+        GitLabConflictResolutionApi gitLabConflictResolutionApi = new GitLabConflictResolutionApi(gitLabMemberUserContext, gitLabEntityApi, backgroundTaskProcessor);
 
-        gitLabEntityApiTestResource = new GitLabEntityApiTestResource(gitLabProjectApi, gitLabWorkspaceApi, gitLabEntityApi, gitLabCommitterReviewApi, gitLabApproverReviewApi, gitLabMemberUserContext);
+        gitLabEntityApiTestResource = new GitLabEntityApiTestResource(gitLabProjectApi, gitLabWorkspaceApi, gitLabEntityApi, gitLabCommitterReviewApi, gitLabApproverReviewApi, gitLabConflictResolutionApi, gitLabMemberUserContext);
     }
 }
