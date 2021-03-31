@@ -15,7 +15,13 @@
 package org.finos.legend.sdlc.server.gitlab.api.docker;
 
 import org.finos.legend.sdlc.server.gitlab.GitLabConfiguration;
-import org.finos.legend.sdlc.server.gitlab.api.*;
+import org.finos.legend.sdlc.server.gitlab.api.GitLabConflictResolutionApi;
+import org.finos.legend.sdlc.server.gitlab.api.GitLabEntityApi;
+import org.finos.legend.sdlc.server.gitlab.api.GitLabEntityApiTestResource;
+import org.finos.legend.sdlc.server.gitlab.api.GitLabProjectApi;
+import org.finos.legend.sdlc.server.gitlab.api.GitLabReviewApi;
+import org.finos.legend.sdlc.server.gitlab.api.GitLabRevisionApi;
+import org.finos.legend.sdlc.server.gitlab.api.GitLabWorkspaceApi;
 import org.finos.legend.sdlc.server.gitlab.auth.GitLabUserContext;
 import org.finos.legend.sdlc.server.project.config.ProjectStructureConfiguration;
 import org.gitlab4j.api.GitLabApiException;
