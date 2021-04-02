@@ -20,6 +20,7 @@ import org.finos.legend.sdlc.domain.model.project.Project;
 import org.finos.legend.sdlc.domain.model.project.ProjectType;
 import org.finos.legend.sdlc.server.error.LegendSDLCServerException;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -116,6 +117,38 @@ public class GitLabProjectApiTestResource
         assertEquals(newProjectName, reRetrievedProject.getName());
         assertEquals(newProjectDescription, reRetrievedProject.getDescription());
         assertEquals(Sets.mutable.withAll(expectedTags), Sets.mutable.withAll(reRetrievedProject.getTags()));
+    }
+
+    public void runDeleteProjectTest() throws LegendSDLCServerException
+    {
+        String projectName = "TestProjectFour";
+        String description = "A test project.";
+        ProjectType projectType = ProjectType.PRODUCTION;
+        String groupId = "org.finos.sdlc.test";
+        String artifactId = "testprojfour";
+        List<String> tags = Lists.mutable.with("doe", "moffitt");
+
+        Project createdProject = gitLabProjectApi.createProject(projectName, description, projectType, groupId, artifactId, tags);
+
+        assertNotNull(createdProject);
+        assertEquals(projectName, createdProject.getName());
+        assertEquals(description, createdProject.getDescription());
+        assertEquals(projectType, createdProject.getProjectType());
+        assertEquals(Sets.mutable.withAll(tags), Sets.mutable.withAll(createdProject.getTags()));
+
+        String projectId = createdProject.getProjectId();
+        Project retrievedProject = gitLabProjectApi.getProject(projectId);
+
+        assertNotNull(retrievedProject);
+        assertEquals(projectName, retrievedProject.getName());
+        assertEquals(description, retrievedProject.getDescription());
+        assertEquals(projectType, retrievedProject.getProjectType());
+        assertEquals(Sets.mutable.withAll(tags), Sets.mutable.withAll(retrievedProject.getTags()));
+
+        gitLabProjectApi.deleteProject(projectId);
+        List<Project> allUserProjects = gitLabProjectApi.getProjects(true, "", Lists.mutable.empty(), Lists.mutable.empty());
+
+        assertEquals(Collections.emptyList(), allUserProjects);
     }
 
     public GitLabProjectApi getGitLabProjectApi()

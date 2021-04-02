@@ -47,7 +47,7 @@ public class IntegrationTestGitLabEntityApis extends AbstractGitLabApiTest
     @Test
     public void testUpdateWorkspaceConflictWorkflow() throws GitLabApiException
     {
-        gitLabEntityApiTestResource.runUpdateWorkspaceWithRebaseNoConflict();
+        gitLabEntityApiTestResource.runUpdateWorkspaceWithRebaseNoConflictTest();
     }
 
     @Test

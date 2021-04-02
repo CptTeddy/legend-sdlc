@@ -59,6 +59,12 @@ public class TestGitLabServerProjectApis extends AbstractGitLabServerApiTest
         gitLabProjectApiTestResource.runUpdateProjectTest();
     }
 
+    @Test
+    public void testDeleteProject()
+    {
+        gitLabProjectApiTestResource.runDeleteProjectTest();
+    }
+
     /**
      * Authenticates with OAuth2 and instantiate the test SDLC GitLabProjectApi.
      *
@@ -71,6 +77,7 @@ public class TestGitLabServerProjectApis extends AbstractGitLabServerApiTest
         GitLabUserContext gitLabUserContext = prepareGitLabOwnerUserContext();
 
         GitLabProjectApi gitLabProjectApi = new GitLabProjectApi(gitLabConfig, gitLabUserContext, projectStructureConfig, null, gitLabConfig, backgroundTaskProcessor);
+
         gitLabProjectApiTestResource = new GitLabProjectApiTestResource(gitLabProjectApi);
     }
 }

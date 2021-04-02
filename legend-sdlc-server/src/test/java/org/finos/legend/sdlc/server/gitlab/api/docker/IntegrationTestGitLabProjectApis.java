@@ -51,6 +51,12 @@ public class IntegrationTestGitLabProjectApis extends AbstractGitLabApiTest
         gitLabProjectApiTestResource.runUpdateProjectTest();
     }
 
+    @Test
+    public void testDeleteProject()
+    {
+        gitLabProjectApiTestResource.runDeleteProjectTest();
+    }
+
     /**
      * Authenticates with OAuth2 and instantiate the test SDLC GitLabProjectApi.
      *

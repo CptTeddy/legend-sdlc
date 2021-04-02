@@ -145,7 +145,7 @@ public class GitLabEntityApiTestResource
         Assert.assertEquals(projectEntity.getContent(), entityContentMap);
     }
 
-    public void runUpdateWorkspaceWithRebaseNoConflict() throws GitLabApiException
+    public void runUpdateWorkspaceWithRebaseNoConflictTest() throws GitLabApiException
     {
         // Create new workspace from previous HEAD
         String projectName = "WorkspaceUpdateTestProject";
@@ -249,7 +249,7 @@ public class GitLabEntityApiTestResource
         Assert.assertEquals(initalEntityNew.getClassifierPath(), classifierPath);
         Assert.assertEquals(initalEntityNew.getContent(), currentEntityContentMap);
 
-        // Update workspace branch and trigger rebase without conflict
+        // Update workspace branch and trigger rebase
         gitLabWorkspaceApi.updateWorkspace(projectId, workspaceId);
         List<Entity> updatedWorkspaceEntities = gitLabEntityApi.getWorkspaceEntityAccessContext(projectId, workspaceId).getEntities(null, null, null);
 
@@ -263,7 +263,7 @@ public class GitLabEntityApiTestResource
 
     public void runUpdateWorkspaceAndResolveRebaseConflict() throws GitLabApiException
     {
-        // Create one workspace to input some changes and commit into project
+        // Create one workspace to input some changes and commit them into the project
         String projectName = "WorkspaceUpdateTestProjectTwo";
         String description = "A test project.";
         ProjectType projectType = ProjectType.PRODUCTION;
@@ -401,7 +401,7 @@ public class GitLabEntityApiTestResource
         Assert.assertEquals(updatedProjectEntity.getClassifierPath(), classifierPath);
         Assert.assertEquals(updatedProjectEntity.getContent(), updatedEntityContentMap);
 
-        // Delete the only entity in workspaceTwo, and update workspace to trigger conflict
+        // Delete the only entity in workspaceTwo, and update workspaceTwo to trigger conflict
         gitLabEntityApi.getWorkspaceEntityModificationContext(projectId, workspaceTwoId).deleteEntity(entityPath, "delete entity");
         List<Entity> workspaceTwoEntities = gitLabEntityApi.getWorkspaceEntityAccessContext(projectId, workspaceTwoId).getEntities(null, null, null);
 
